@@ -24,6 +24,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,21 +54,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-    <!-- Begin Azure SDK specific conditionals -->
-    <PropertyGroup>
-        <AzureRuntimeAvailable>$(SolutionName.EndsWith('NoAzureSDK').Equals(false))</AzureRuntimeAvailable>
-    </PropertyGroup>
-    <PropertyGroup Condition="$(AzureRuntimeAvailable) == 'true'">
-        <DefineConstants>$(DefineConstants);AZURESDK</DefineConstants>
-    </PropertyGroup>
-    <ItemGroup Condition="$(AzureRuntimeAvailable) == 'true'">
-        <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-        <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-        <Compile Include="WebRole.cs">
-			<Visible>$(AzureRuntimeAvailable)</Visible>
-        </Compile>
-    </ItemGroup>
-    <!-- End Azure SDK specific conditionals -->
+  <!-- Begin Azure SDK specific conditionals -->
+  <PropertyGroup>
+    <AzureRuntimeAvailable>$(SolutionName.EndsWith('NoAzureSDK').Equals(false))</AzureRuntimeAvailable>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(AzureRuntimeAvailable) == 'true'">
+    <DefineConstants>$(DefineConstants);AZURESDK</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="$(AzureRuntimeAvailable) == 'true'">
+    <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Compile Include="WebRole.cs">
+      <Visible>$(AzureRuntimeAvailable)</Visible>
+    </Compile>
+  </ItemGroup>
+  <!-- End Azure SDK specific conditionals -->
   <ItemGroup>
     <Reference Include="AutoMapper, Version=2.1.267.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -310,4 +312,5 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

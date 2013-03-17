@@ -22,10 +22,21 @@ namespace Conference
     [ComplexType]
     public class Attendee
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string FirstName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string LastName { get; set; }
+
         // NOTE: we validate incoming data (this is filled from an event coming 
         // from the registration BC) so that when EF saves it will fail if it's invalid.
+        /// <summary>
+        /// 
+        /// </summary>
         [RegularExpression(@"[\w-]+(\.?[\w-])*\@[\w-]+(\.[\w-]+)+")]
         public string Email { get; set; }
     }
